@@ -23,7 +23,7 @@ namespace cs_form_mtn_008_vs2022
         // *****************************
         // SQL文字列格納用
         // *****************************
-        private string query = "select * from 社員マスタ";
+        private string query = "select * from 社員マスタ order by 社員コード";
 
         // *****************************
         // 接続文字列作成用
@@ -67,7 +67,13 @@ namespace cs_form_mtn_008_vs2022
                 // このダイアログの終了時のフラグ
                 this.DialogResult = DialogResult.OK;
                 // 参照する為に modifiers を internal に
-                ((Form1)this.Owner).社員コード.Text = "0001";
+
+                // 現在の最大値を取得して、Form1 に +1 して渡す
+                int rows = dataGridView1.RowCount;
+                string? code = dataGridView1.Rows[rows - 1].Cells[0].Value.ToString();
+                int num = Int16.Parse(code);
+                num++;
+                ((Form1)this.Owner).社員コード.Text = $"{num:0000}";
             }
         }
 
