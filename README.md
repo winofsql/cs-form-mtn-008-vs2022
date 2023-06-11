@@ -13,3 +13,28 @@
   - DataGridView の行選択は全ての列とする
   - ESC キーでフォームを閉じて、Form1 の社員コードに現在の最大値 + 1 を編集したものをセットする
   - セット可能にする為に社員コードの modifiers を internal とする
+
+```cs
+// *****************************************
+// ファンクションキ－
+// ( フォームの KeyPreview : True )
+// *****************************************
+private void Form2_KeyDown(object sender, KeyEventArgs e)
+{
+    if (e.KeyCode == Keys.Escape)
+    {
+        // このダイアログを閉じる
+        this.Close();
+        // このダイアログの終了時のフラグ
+        this.DialogResult = DialogResult.OK;
+        // 参照する為に modifiers を internal に
+
+        // 現在の最大値を取得して、Form1 に +1 して渡す
+        int rows = dataGridView1.RowCount;
+        string? code = dataGridView1.Rows[rows - 1].Cells[0].Value.ToString();
+        int num = Int16.Parse(code);
+        num++;
+        ((Form1)this.Owner).社員コード.Text = $"{num:0000}";
+    }
+}
+```
